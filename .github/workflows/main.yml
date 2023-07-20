@@ -17,6 +17,9 @@ jobs:
     steps:
       - name: Set environment
         run: |
+          pwd
+          cd ..
+          ls -la
           ls -la ${{ env.WORKDIR }}
           version=$(cat ${{ env.WORKDIR }}/version || echo "latest")
           echo $version
