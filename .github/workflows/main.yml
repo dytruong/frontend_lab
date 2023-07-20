@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-n-push-docker:
     runs-on: ubuntu-latest
 
     env: 
@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Set environment
         run: |
-          version=$(cat ${WORKDIR}/version.txt || echo "latest")
+          version=$(cat ./version.txt || echo "latest")
           echo $version
           echo "DOCKER_IMAGE_TAG=${version}" >> $GITHUB_ENV
 
