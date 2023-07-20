@@ -17,6 +17,7 @@ jobs:
     steps:
       - name: Set environment
         run: |
+          cd ..
           ls -la "${GITHUB_WORKSPACE}"
           ls -la "${{ env.WORK_DIR }}"
           version=$(cat ${{ env.WORK_DIR }}/version || echo "latest")
