@@ -12,15 +12,13 @@ jobs:
 
     env: 
       DOCKER_IMAGE_NAME: "authenticate-service"
-      WORK_DIR: ${{ github.workspace }}
 
     steps:
       - name: Set environment
         run: |
-          cd ..
-          ls -la "${GITHUB_WORKSPACE}"
-          ls -la "${{ env.WORK_DIR }}"
-          version=$(cat ${{ env.WORK_DIR }}/version || echo "latest")
+          WORKDIR=$(echo "${{ github.workspace }}" | rev | cut -d'/' -f2- | rev)
+          echo "WORKDIR=${WORKDIR}" >> $GITHUB_ENV
+          version=$(cat ${WORKDIR}/version || echo "latest")
           echo $version
           echo "DOCKER_IMAGE_TAG=${version}" >> $GITHUB_ENV
 
