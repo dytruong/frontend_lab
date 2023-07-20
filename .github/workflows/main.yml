@@ -16,9 +16,7 @@ jobs:
     steps:
       - name: Set environment
         run: |
-          WORKDIR=$(echo "${{ github.workspace }}" | rev | cut -d'/' -f2- | rev)
-          echo "WORKDIR=${WORKDIR}" >> $GITHUB_ENV
-          version=$(cat ${WORKDIR}/version || echo "latest")
+          version=$(cat ${WORKDIR}/version.txt || echo "latest")
           echo $version
           echo "DOCKER_IMAGE_TAG=${version}" >> $GITHUB_ENV
 
@@ -37,7 +35,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: ${{ env.WORK_DIR }}
+          context: .
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }}
