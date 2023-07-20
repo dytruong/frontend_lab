@@ -17,7 +17,8 @@ jobs:
     steps:
       - name: Set environment
         run: |
-          pwd
+          ls -la "${GITHUB_WORKSPACE}"
+          ls -la "${{ env.WORK_DIR }}"
           version=$(cat ${{ env.WORK_DIR }}/version || echo "latest")
           echo $version
           echo "DOCKER_IMAGE_TAG=${version}" >> $GITHUB_ENV
